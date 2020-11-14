@@ -1,4 +1,5 @@
-
+//need to convert epoch to regular date
+//fix small screen size
 const apiKey = '0b53ac0f940893f55db63af93f3ada83'
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip='
 const results = []
@@ -6,6 +7,7 @@ document.getElementById('generate').addEventListener('click', performAction);
 const weather = document.getElementById("entryHolder")
 const resultsDiv = document.createElement("div")
 resultsDiv.id = "results"
+const details = document.getElementById("details")
 
 function performAction(event){
     event.preventDefault();
@@ -38,15 +40,15 @@ function updateFrontend(results){
     const clouds = document.getElementById("clouds")
     const image = document.createElement("img")
     const card = document.getElementById("results")
-   const temp = document.getElementById("0");
+    const temp = document.getElementById("0");
    const date = document.getElementById("1");
    const content = document.getElementById("2");
-//    date.innerText = 
+
    card.appendChild(temp)
    card.appendChild(clouds);
    card.appendChild(image);
 
-    temp.innerText = results[0].main.temp.toFixed() + " degrees"
+    temp.innerText = results[0].main.temp.toFixed() + " degrees ℉"
 
     if (results[0].clouds.all === 0){
         clouds.innerText = "There are no clouds in the sky today ☀"	
@@ -59,6 +61,7 @@ function updateFrontend(results){
         image.src = '../images/clouds.jpg'
     } else {
         image.src = '../images/rain.jpg'
+        clouds.innerText = "It is a rainy day"
     }    
     
     
