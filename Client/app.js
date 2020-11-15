@@ -1,5 +1,6 @@
 //need to convert epoch to regular date
 //fix small screen size
+//make the post request
 const apiKey = '0b53ac0f940893f55db63af93f3ada83'
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip='
 const results = []
@@ -25,7 +26,9 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
         updateFrontend(results);
     } catch (error){
         console.log(error, "this is the error")
-    }
+    }.then(postComment());
+
+    
 }
 const createLis = () => {
     for (let i = 0; i < 3; i++){
@@ -56,14 +59,19 @@ function updateFrontend(results){
         clouds.innerText = "It is a cloudy day ☁"
     }
     if (results[0].weather[0].description === "clear sky"){
-        image.src = '../images/sun.jpg'
+        image.src = '../images/sun.png'
     } else if (results[0].weather[0].description === "broken clouds"){
-        image.src = '../images/clouds.jpg'
+        image.src = '../images/clouds.png'
     } else {
-        image.src = '../images/rain.jpg'
+        image.src = '../images/rain.png'
         clouds.innerText = "It is a rainy day"
     }    
     
     
 }
+// postData('/addWeather', {:data.animal, fact: data.fact} )
+const addWeather = async (baseURL, zipcode, apiKey) => {
+
+}
+
 
