@@ -13,9 +13,9 @@ const details = document.getElementById("details")
 function performAction(event){
     event.preventDefault();
     const zipcode = document.getElementById('feelings').value
-    getZipode(baseURL, zipcode, apiKey).then(function(data) { 
+    getZipode(baseURL, zipcode, apiKey).then(function(results) { 
         console.log(data);
-        postData('/addData', {place: zipcode, weather: clouds, temp: temp})
+        postData('/addData', {place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()})
     });
 }
 
@@ -29,7 +29,7 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
         updateFrontend(results);
     } catch (error){
         console.log(error, "this is the error")
-    // }.then(postComment());
+  
     }
     
 }
@@ -74,9 +74,5 @@ function updateFrontend(results){
     
     
 }
-// postData('/addWeather', {:data.animal, fact: data.fact} )
-// const addWeather = async (baseURL, zipcode, apiKey) => {
-
-// }
 
 
