@@ -13,10 +13,11 @@ const details = document.getElementById("details")
 function performAction(event){
     event.preventDefault();
     const zipcode = document.getElementById('feelings').value
-    getZipode(baseURL, zipcode, apiKey).then(function(results) { 
-        console.log(results);
-        postData('/addData', {place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()} )
-    }).then(updateUi({place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()}))
+     getZipode(baseURL, zipcode, apiKey)
+    // .then(function(results) { 
+    //     postData('/addData', results, {place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()} )
+    // }).then(updateUi(
+    //     {place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()}))
 }
 
 const getZipode = async (baseURL, zipcode, apiKey) => {
@@ -29,12 +30,10 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
         updateFrontend(results);
     } catch (error){
         console.log(error, "this is the error")
-  
     }
-    
-}
+};
 
-const postData = async ('/addData', specialData) => {
+const postData = async (url = '/addData', results, data = {})=> {
     console.log(specialData, "this is post data function running");
     const response = await fetch('/', {
         method: 'POST',
@@ -42,7 +41,7 @@ const postData = async ('/addData', specialData) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(specialData)
+        body: JSON.stringify(data)
     })
     try {
         const newData = await response.json()
@@ -69,9 +68,15 @@ function updateFrontend(results){
     const date = document.getElementById("1");
     const content = document.getElementById("2");
     const div = document.createElement('div')
+    const image = document.createElement("img")
   
    card.appendChild(clouds);
    card.appendChild(temp)
+   card.appendChild(image)
+   card.appendChild(content)
+   image.appendChild(div)
+   image.id = "image"
+   div.id = "container1"
   
 
     temp.innerText = results[0].main.temp.toFixed() + " degrees ℉"
@@ -84,14 +89,17 @@ function updateFrontend(results){
         clouds.innerText = "It's a cloudy day! ☁"
     }
     if (results[0].weather[0].description === "clear sky"){
-        card.cssText = 'background-image : url(../images/sun.png), background-size: cover;' 
+        image.src = '../images/sun.png' 
     } else if (results[0].weather[0].description === "broken clouds"){
-        card.cssText = 'background-image: url(../images/clouds.png), background-size: cover;'
+        image.src = '../images/clouds.png' 
     } else {
-        card.cssText = 'background-image: url(../images/rain.png), background-size: cover;'
-        clouds.innerText = "It is a rainy day"
+        image.src = '../images/rain.png'
     }    
-    
+    if (parseInt(results[0].main.temp.toFixed()) > 70 ){
+        content.innerText = "It's a nice warm day!"
+    } else {
+        content.innerText = "It's a bit chilly outside make sure to bring a jacket!"
+    }
     
 }
 
