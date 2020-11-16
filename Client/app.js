@@ -14,9 +14,9 @@ function performAction(event){
     event.preventDefault();
     const zipcode = document.getElementById('feelings').value
     getZipode(baseURL, zipcode, apiKey).then(function(results) { 
-        console.log(data);
-        postData('/addData', {place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()})
-    });
+        console.log(results);
+        postData('/addData', {place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()} )
+    }).then(updateUi({place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()}))
 }
 
 const getZipode = async (baseURL, zipcode, apiKey) => {
@@ -33,6 +33,26 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
     }
     
 }
+
+const postData = async ('/addData', specialData) => {
+    console.log(specialData, "this is post data function running");
+    const response = await fetch('/', {
+        method: 'POST',
+        credentials: 'cross-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(specialData)
+    })
+    try {
+        const newData = await response.json()
+        console.log(newData, "this is new data")
+        
+    } catch (error){
+        console.error
+    }
+}
+
 const createLis = () => {
     for (let i = 0; i < 3; i++){
         const p = document.createElement('p')
@@ -76,3 +96,6 @@ function updateFrontend(results){
 }
 
 
+const updateUi = (specialData) => {
+    console.log("update ui being called")
+}
