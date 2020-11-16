@@ -13,7 +13,10 @@ const details = document.getElementById("details")
 function performAction(event){
     event.preventDefault();
     const zipcode = document.getElementById('feelings').value
-    getZipode(baseURL, zipcode, apiKey)
+    getZipode(baseURL, zipcode, apiKey).then(function(data) { 
+        console.log(data);
+        postData('/addData', {place: zipcode, weather: clouds, temp: temp})
+    });
 }
 
 const getZipode = async (baseURL, zipcode, apiKey) => {
@@ -26,8 +29,8 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
         updateFrontend(results);
     } catch (error){
         console.log(error, "this is the error")
-    }.then(postComment());
-
+    // }.then(postComment());
+    }
     
 }
 const createLis = () => {
@@ -41,37 +44,39 @@ const createLis = () => {
 function updateFrontend(results){
     weather.appendChild(resultsDiv);
     const clouds = document.getElementById("clouds")
-    const image = document.createElement("img")
     const card = document.getElementById("results")
     const temp = document.getElementById("0");
-   const date = document.getElementById("1");
-   const content = document.getElementById("2");
-
-   card.appendChild(temp)
+    const date = document.getElementById("1");
+    const content = document.getElementById("2");
+    const div = document.createElement('div')
+  
    card.appendChild(clouds);
-   card.appendChild(image);
+   card.appendChild(temp)
+  
 
     temp.innerText = results[0].main.temp.toFixed() + " degrees ℉"
 
     if (results[0].clouds.all === 0){
         clouds.innerText = "There are no clouds in the sky today ☀"	
-    } else {
-        clouds.innerText = "It is a cloudy day ☁"
+    } else if(results[0].clouds.all > 0 && results[0].clouds.all < 10) {
+        clouds.innerText = "There are some clouds today ☁"
+    }  else {
+        clouds.innerText = "It's a cloudy day! ☁"
     }
     if (results[0].weather[0].description === "clear sky"){
-        image.src = '../images/sun.png'
+        card.cssText = 'background-image : url(../images/sun.png), background-size: cover;' 
     } else if (results[0].weather[0].description === "broken clouds"){
-        image.src = '../images/clouds.png'
+        card.cssText = 'background-image: url(../images/clouds.png), background-size: cover;'
     } else {
-        image.src = '../images/rain.png'
+        card.cssText = 'background-image: url(../images/rain.png), background-size: cover;'
         clouds.innerText = "It is a rainy day"
     }    
     
     
 }
 // postData('/addWeather', {:data.animal, fact: data.fact} )
-const addWeather = async (baseURL, zipcode, apiKey) => {
+// const addWeather = async (baseURL, zipcode, apiKey) => {
 
-}
+// }
 
 
