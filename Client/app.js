@@ -1,5 +1,8 @@
 //need to convert epoch to regular date
 //fix small screen size
+
+// const { url } = require("inspector");
+
 //make the post request
 const apiKey = '0b53ac0f940893f55db63af93f3ada83'
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip='
@@ -14,10 +17,10 @@ function performAction(event){
     event.preventDefault();
     const zipcode = document.getElementById('feelings').value
      getZipode(baseURL, zipcode, apiKey)
-    // .then(function(results) { 
-    //     postData('/addData', results, {place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()} )
-    // }).then(updateUi(
-    //     {place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()}))
+    .then(function(results) { 
+        postData('/addData', results, {place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()} )
+    }).then(updateUi(
+        {place: zipcode, weather: results[0].clouds.all, temp: results[0].main.temp.toFixed()}))
 }
 
 const getZipode = async (baseURL, zipcode, apiKey) => {
@@ -74,11 +77,11 @@ function updateFrontend(results){
    card.appendChild(temp)
    card.appendChild(image)
    card.appendChild(content)
+   card.appendChild(div)
    image.appendChild(div)
    image.id = "image"
    div.id = "container1"
   
-
     temp.innerText = results[0].main.temp.toFixed() + " degrees ℉"
 
     if (results[0].clouds.all === 0){
@@ -89,10 +92,14 @@ function updateFrontend(results){
         clouds.innerText = "It's a cloudy day! ☁"
     }
     if (results[0].weather[0].description === "clear sky"){
-        image.src = '../images/sun.png' 
+        image.src = '../images/sun.png'
+        // div.cssText = "background-image: url('../images/sun.png'); background-size: cover;"
+
     } else if (results[0].weather[0].description === "broken clouds"){
-        image.src = '../images/clouds.png' 
+    //    div.cssText = "background-image: url('../images/clouds.png'); background-size: cover;"
+        image.src = '../images/clouds.png'
     } else {
+    //    div.cssText = "background-image: url('../images/rain.png'); background-size: cover;"
         image.src = '../images/rain.png'
     }    
     if (parseInt(results[0].main.temp.toFixed()) > 70 ){
