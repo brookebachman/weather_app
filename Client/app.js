@@ -6,9 +6,9 @@ const apiKey = '0b53ac0f940893f55db63af93f3ada83';
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip=';
 let projectData = {};
 document.getElementById('generate').addEventListener('click', performAction);
-const weather = document.getElementById('entryHolder');
-const resultsDiv = document.createElement('div');
-resultsDiv.id = 'results';
+const entryHolder = document.getElementById('entryHolder');
+const results = document.createElement('div')
+results.id = "results"
 const details = document.getElementById('details');
 function performAction(event) {
 	event.preventDefault();
@@ -33,7 +33,8 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
 		const data = await response.json();
 		projectData = { newData: data };
 		createLis();
-		updateFrontend(projectData);
+        updateFrontend(projectData);
+        console.log(projectData.newData)
 	} catch (error) {
 		console.log(error, 'this is the error');
 	}
@@ -56,30 +57,37 @@ const postData = async (url = '/addData', data = {}) => {
 	}
 };
 const createLis = () => {
-	for (let i = 0; i < 3; i++) {
-		const p = document.createElement('p');
+	for (let i = 0; i < 4; i++) {
+        const p = document.createElement('p');
 		p.id = i;
-		weather.appendChild(p);
+        results.appendChild(p);
+       
 	}
 };
+
+function convertTime(){
+    let utcSeconds = 1234567890;
+    let d = new Date(0);
+    d.setUTCSeconds
+}
 function updateFrontend(projectData) {
+    entryHolder.appendChild(results);
 	console.log('update frontend getting called');
-	weather.appendChild(resultsDiv);
-	const clouds = document.getElementById('clouds');
-	const card = document.getElementById('results');
 	const temp = document.getElementById('0');
 	const date = document.getElementById('1');
-	const content = document.getElementById('2');
-	const div = document.createElement('div');
-	//const image = document.createElement("img")
-	card.appendChild(clouds);
-	card.appendChild(temp);
-	//card.appendChild(image);
-	card.appendChild(content);
-	card.appendChild(div);
-	//image.appendChild(div)
-	//image.id = "image"
-	div.id = 'container1';
+    const content = document.getElementById('2');
+    const clouds = document.getElementById('3');
+    const div = document.createElement('div');
+    div.id = 'container';
+    const innerDiv = document.createElement('div')
+    innerDiv.id = "inner"
+	results.appendChild(div);
+	div.appendChild(innerDiv);
+    innerDiv.appendChild(date);
+    innerDiv.appendChild(temp)
+    innerDiv.appendChild(content);
+    innerDiv.appendChild(clouds)
+    date.innerText = projectData.newData.dt
 	temp.innerText = projectData.newData.main.temp.toFixed() + ' degrees ℉';
 	if (projectData.newData.clouds.all === 0) {
 		clouds.innerText = 'There are no clouds in the sky today ☀';
@@ -90,12 +98,12 @@ function updateFrontend(projectData) {
 	}
 	if (projectData.newData.weather[0].description === 'clear sky') {
 		//image.src = '../images/sun.png'
-		results.style.cssText = "background-image: url('../images/sun.png'); background-size: cover;";
+		div.style.cssText = "background-image: url('../images/sun.png'); background-size: cover;";
 	} else if (projectData.newData.weather[0].description === 'broken clouds') {
-		results.style.cssText = "background-image: url('../images/clouds.png'); background-size: cover;";
+		div.style.cssText = "background-image: url('../images/clouds.png'); background-size: cover;";
 		//image.src = '../images/clouds.png'
 	} else {
-		results.style.cssText = "background-image: url('../images/rain.png'); background-size: cover;";
+		div.style.cssText = "background-image: url('../images/rain.png'); background-size: cover;";
 		//image.src = '../images/rain.png'
 	}
 	if (parseInt(projectData.newData.main.temp.toFixed()) > 70) {

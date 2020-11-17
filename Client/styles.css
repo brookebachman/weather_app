@@ -28,41 +28,50 @@ html {
         padding: 20px 10px;
         font-size: 20px;
         background-color: rgba(255, 254, 254, 0.3);
-        height: 30vh;
         
     }
     form {
         text-align: center;
     }
 
-    #entryHolder {
-        justify-content: center;
-    }
+   
     #results {
+        margin: 20px 0px;
         background-color: rgba(255, 254, 254, 0.3);
         padding: 30px;
         font-size: 20px;
-       /*display: grid;
-        /* grid-template-columns: 1.5fr 2.5fr;
-        grid-template-rows: 1fr 2fr;
-        grid-template-areas: 'weather pic' 'left right'; */
-        border: 1px dotted pink;
+        height: 35vh;
     }
-     /* #temp {
-        grid-area: weather;
-    } 
+    #container {
+        height: 30vh;
+        padding: 20px;
+        
+    }
+
+    #inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 'top1 top2' 'left right'; 
+        height: 28vh;
+        color: white;
+    }
 
     #clouds {
-        grid-area: pic;
-    } 
-
-    #container1 {
-        grid-area: left;
+        grid-area: top2;
+        justify-items: end;
+    }  
+    #date {
+        grid-area: top1;
     }
-
-    #image {
+    #temp {
+        grid-area: left;
+        justify-content: start;
+    } 
+    #content {
         grid-area: right;
-    } */
+        justify-items: end;
+    }
 
 
     .myButton {
