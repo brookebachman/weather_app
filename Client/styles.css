@@ -51,27 +51,27 @@ html {
     #inner {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        grid-template-areas: 'top1 top2' 'left right'; 
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas: 'top1 top2' 'mid mid''left right'; 
         height: 28vh;
         color: white;
         padding: 10px;
     }
 
-    #clouds {
+    #temp {
         grid-area: top2;
-        align-self: left;
+        text-align: right;
     }  
     #date {
         grid-area: top1;
     }
-    #temp {
+    #text {
         grid-area: left;
-        justify-content: start;
+        text-align: left;
     } 
-    #content {
+    #clouds {
         grid-area: right;
-        justify-items: end;
+        text-align: right;
     }
 
 

@@ -81,6 +81,10 @@ function updateFrontend(projectData) {
     const content = document.getElementById('2');
     const clouds = document.getElementById('3');
     const div = document.createElement('div');
+    temp.id = "temp";
+    clouds.id = "clouds"
+    date.id = "date";
+    content.id = "text";
     div.id = 'container';
     const innerDiv = document.createElement('div')
     innerDiv.id = "inner"
@@ -90,7 +94,7 @@ function updateFrontend(projectData) {
     innerDiv.appendChild(temp)
     innerDiv.appendChild(content);
     innerDiv.appendChild(clouds)
-    date.innerText = projectData.newData.dt
+    date.innerText = convertTime()
 	temp.innerText = projectData.newData.main.temp.toFixed() + ' degrees ℉';
 	if (projectData.newData.clouds.all === 0) {
 		clouds.innerText = 'There are no clouds in the sky today ☀';
