@@ -38,22 +38,22 @@ html {
     #entryHolder {
         justify-content: center;
     }
-    /* #results {
+     #results {
         background-color: rgba(255, 254, 254, 0.3);
         padding: 30px;
         font-size: 20px;
         display: grid;
-        grid-template-columns: 1.5fr 2.5fr;
-        grid-template-rows: 1fr 2fr;
-        grid-template-areas: 'weather pic' 'left right';
+        grid-template-columns: 2fr 2fr 2fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 'pic pic pic' 'left middle right';
         border: 1px dotted pink;
     }
      #temp {
-        grid-area: weather;
+        grid-area: middle;
     } 
 
     #clouds {
-        grid-area: pic;
+        grid-area: right;
     } 
 
     #container1 {
@@ -61,8 +61,8 @@ html {
     }
 
     #image {
-        grid-area: right;
-    } */
+        grid-area: pic;
+    } 
 
 
     .myButton {
@@ -91,10 +91,9 @@ html {
     }
     img {
         height: 300px;
-        width: 400px;
-        grid-area: pic;
+        width: 640px;
         border-radius: 3%;
-        position: relative;
+       
     }
 
     #0 {

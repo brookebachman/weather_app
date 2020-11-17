@@ -75,14 +75,13 @@ function updateFrontend(results){
   
    card.appendChild(clouds);
    card.appendChild(temp)
-   //card.appendChild(image)
+   card.appendChild(image)
    card.appendChild(content)
    card.appendChild(div)
-//    image.appendChild(div)
-//    image.id = "image"
+   image.appendChild(div)
+   image.id = "image"
    div.id = "container1"
   
-
     temp.innerText = results[0].main.temp.toFixed() + " degrees ℉"
 
     if (results[0].clouds.all === 0){
@@ -93,11 +92,15 @@ function updateFrontend(results){
         clouds.innerText = "It's a cloudy day! ☁"
     }
     if (results[0].weather[0].description === "clear sky"){
-        div.cssText = "background-image: url('../images/sun.png'); background-size: cover;"
+        image.src = '../images/sun.png'
+        // div.cssText = "background-image: url('../images/sun.png'); background-size: cover;"
+
     } else if (results[0].weather[0].description === "broken clouds"){
-       div.cssText = "background-image: url('../images/clouds.png'); background-size: cover;"
+    //    div.cssText = "background-image: url('../images/clouds.png'); background-size: cover;"
+        image.src = '../images/clouds.png'
     } else {
-       div.cssText = "background-image: url('../images/rain.png'); background-size: cover;"
+    //    div.cssText = "background-image: url('../images/rain.png'); background-size: cover;"
+        image.src = '../images/rain.png'
     }    
     if (parseInt(results[0].main.temp.toFixed()) > 70 ){
         content.innerText = "It's a nice warm day!"
