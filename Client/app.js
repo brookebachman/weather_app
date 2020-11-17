@@ -73,15 +73,15 @@ function updateFrontend(projectData){
     const date = document.getElementById("1");
     const content = document.getElementById("2");
     const div = document.createElement('div')
-    const image = document.createElement("img")
+    //const image = document.createElement("img")
   
    card.appendChild(clouds);
    card.appendChild(temp)
    card.appendChild(image)
    card.appendChild(content)
    card.appendChild(div)
-   image.appendChild(div)
-   image.id = "image"
+   //image.appendChild(div)
+   //image.id = "image"
    div.id = "container1"
   
     temp.innerText = projectData.newData.main.temp.toFixed() + " degrees ℉"
@@ -94,15 +94,15 @@ function updateFrontend(projectData){
         clouds.innerText = "It's a cloudy day! ☁"
     }
     if (projectData.newData.weather[0].description === "clear sky"){
-        image.src = '../images/sun.png'
-        // div.cssText = "background-image: url('../images/sun.png'); background-size: cover;"
+        //image.src = '../images/sun.png'
+        div.cssText = "background-image: url('../images/sun.png'); background-size: cover;"
 
     } else if (projectData.newData.weather[0].description === "broken clouds"){
-    //    div.cssText = "background-image: url('../images/clouds.png'); background-size: cover;"
-        image.src = '../images/clouds.png'
+    div.cssText = "background-image: url('../images/clouds.png'); background-size: cover;"
+        //image.src = '../images/clouds.png'
     } else {
-    //    div.cssText = "background-image: url('../images/rain.png'); background-size: cover;"
-        image.src = '../images/rain.png'
+       div.cssText = "background-image: url('../images/rain.png'); background-size: cover;"
+        //image.src = '../images/rain.png'
     }    
     if (parseInt(projectData.newData.main.temp.toFixed()) > 70 ){
         content.innerText = "It's a nice warm day!"
