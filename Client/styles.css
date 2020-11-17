@@ -55,11 +55,12 @@ html {
         grid-template-areas: 'top1 top2' 'left right'; 
         height: 28vh;
         color: white;
+        padding: 10px;
     }
 
     #clouds {
         grid-area: top2;
-        justify-items: end;
+        align-self: left;
     }  
     #date {
         grid-area: top1;

@@ -32,7 +32,8 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
 	try {
 		const data = await response.json();
 		projectData = { newData: data };
-		createLis();
+        createLis();
+        convertTime(projectData);
         updateFrontend(projectData);
         console.log(projectData.newData)
 	} catch (error) {
@@ -66,9 +67,11 @@ const createLis = () => {
 };
 
 function convertTime(){
-    let utcSeconds = 1234567890;
+    let utcSeconds = projectData.newData.dt;
     let d = new Date(0);
-    d.setUTCSeconds
+    d.setUTCSeconds(utcSeconds)
+    console.log(d)
+    return d
 }
 function updateFrontend(projectData) {
     entryHolder.appendChild(results);
