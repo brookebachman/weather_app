@@ -35,7 +35,7 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
 		createLis();
 		changeTime(projectData);
         changeDate(projectData);
-        sunset(projectData);
+        sunsetCheck(changeTime(), projectData)
 		updateFrontend(projectData);
 		console.log(projectData.newData);
 	} catch (error) {
@@ -110,24 +110,30 @@ function changeTime() {
     } else {
         time = ' AM'
     }
-
-	return timeArray.join('')+ time;
+    
+    return timeArray.join('')+ time;
+    
 }
 
-function sunset(){
-    console.log("sunset is running")
+function sunsetCheck(time, projectData){
+    console.log("sunset is running", time)
     let utcSeconds = projectData.newData.sys.sunset;
 	let d = new Date(0);
     d.setUTCSeconds(utcSeconds);
     let array = d.toString().split(' ');
     dateTime = array.slice(4, 5).toString();
-    let timeArray = []
+    let sunsetTime = []
 	for (let i = 0; i < dateTime.length; i++) {
 		if (i < 5) {
-			timeArray.push(dateTime[i]);
+			sunsetTime.push(dateTime[i]);
 		}
     }
-    console.log(timeArray, "sunset")
+    if (time >= sunsetTime){
+        return true
+    } else {
+        return false
+    }
+    
 }
 
 function updateFrontend(projectData) {
@@ -164,7 +170,11 @@ function updateFrontend(projectData) {
 	place.innerText = projectData.newData.name;
 	date.innerText = changeDate();
 	time.innerText = changeTime();
-	temp.innerText = projectData.newData.main.temp.toFixed() + '°';
+    temp.innerText = projectData.newData.main.temp.toFixed() + '°';
+    
+    if (sunsetCheck() == true){
+        container.style.cssText = "background-image: url('../images/night.png')";
+    }
 	// if (projectData.newData.clouds.all === 0) {
 	// 	clouds.innerText = 'There are no clouds in the sky today ☀';
 	// } else if (projectData.newData.clouds.all > 0 && projectData.newData.clouds.all < 10) {
