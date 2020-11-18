@@ -33,7 +33,8 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
 		const data = await response.json();
 		projectData = { newData: data };
         createLis();
-        convertTime(projectData);
+        changeTime(projectData);
+        changeDate(projectData)
         updateFrontend(projectData);
         console.log(projectData.newData)
 	} catch (error) {
@@ -58,35 +59,46 @@ const postData = async (url = '/addData', data = {}) => {
 	}
 };
 const createLis = () => {
-	for (let i = 0; i < 4; i++) {
+	for (let i = 0; i < 6; i++) {
         const p = document.createElement('p');
 		p.id = i;
         results.appendChild(p);
-       
 	}
 };
 
-function changeTime(d){
-  let array = d
-    for (const [key, value] of Object.entries(d)) {
-        console.log(`${key}: ${value}`);
-      }
- 
-
-    // return time
-}
-
-function convertTime(){
+function changeDate(){
     let utcSeconds = projectData.newData.dt;
     let d = new Date(0);
     d.setUTCSeconds(utcSeconds)
-    
-    console.log(d)
-    changeTime(d)
+    let array = d.toString().split(" ")
+    let dateArray = []
+    // for (let i = 0; i < array.length; i++){
+    //     console.log(array[i], i)
+    // }
+   dateArray = array.slice(1,4);
 
-    return d
-    
+    return dateArray.toString(" ")
+    // return time
 }
+
+function changeTime(){
+    console.log("change time is getting called")
+    let timeArray = []
+    let utcSeconds = projectData.newData.dt;
+    let d = new Date(0);
+    d.setUTCSeconds(utcSeconds)
+    let array = d.toString().split(" ")
+    dateTime = array.slice(4,5).toString()
+    for (let i =0; i < dateTime.length; i++){
+        if (i < 5){
+            timeArray.push(dateTime[i])
+        }
+    }
+   
+
+    return timeArray.join("")
+}
+
 
 function updateFrontend(projectData) {
     entryHolder.appendChild(results);
@@ -95,22 +107,31 @@ function updateFrontend(projectData) {
 	const date = document.getElementById('1');
     const content = document.getElementById('2');
     const clouds = document.getElementById('3');
+    const place = document.getElementById('4')
+    const time = document.getElementById('5')
     const div = document.createElement('div');
     temp.id = "temp";
     clouds.id = "clouds"
     date.id = "date";
     content.id = "text";
     div.id = 'container';
+    place.id = 'place';
+    time.id = "time";
     const innerDiv = document.createElement('div')
     innerDiv.id = "inner"
+    const placeDiv = document.createElement('div')
 	results.appendChild(div);
-	div.appendChild(innerDiv);
-    innerDiv.appendChild(date);
+    div.appendChild(innerDiv);
+    innerDiv.appendChild(placeDiv)
     innerDiv.appendChild(temp)
-    innerDiv.appendChild(content);
-    innerDiv.appendChild(clouds)
-    date.innerText = convertTime()
-	temp.innerText = projectData.newData.main.temp.toFixed() + ' ℉';
+    placeDiv.appendChild(place)
+    placeDiv.appendChild(date);
+    placeDiv.appendChild(time)
+    innerDiv.appendChild(clouds);
+    place.innerText = projectData.newData.name
+    date.innerText = changeDate()
+    time.innerText = changeTime()
+	temp.innerText = projectData.newData.main.temp.toFixed() + '°';
 	if (projectData.newData.clouds.all === 0) {
 		clouds.innerText = 'There are no clouds in the sky today ☀';
 	} else if (projectData.newData.clouds.all > 0 && projectData.newData.clouds.all < 10) {
@@ -120,20 +141,20 @@ function updateFrontend(projectData) {
 	}
 	if (projectData.newData.weather[0].description === 'clear sky') {
 		//image.src = '../images/sun.png'
-		div.style.cssText = "background-image: url('../images/sun.png'); background-size: cover;";
+		// div.style.cssText = "background-image: url('../images/sun.png'); background-size: cover;";
 	} else if (projectData.newData.weather[0].description === 'broken clouds') {
-        div.style.cssText = "background-image: url('../images/clouds.png'); background-size: cover;";
-        innerDiv.style.color = "black";
+        // div.style.cssText = "background-image: url('../images/clouds.png'); background-size: cover;";
+        // innerDiv.style.color = "black";
 		//image.src = '../images/clouds.png'
 	} else {
-		div.style.cssText = "background-image: url('../images/rain.png'); background-size: cover;";
+		// div.style.cssText = "background-image: url('../images/rain.png'); background-size: cover;";
 		//image.src = '../images/rain.png'
 	}
-	if (parseInt(projectData.newData.main.temp.toFixed()) > 70) {
-		content.innerText = "It's a nice warm day!";
-	} else {
-		content.innerText = "It's a bit chilly outside make sure to bring a jacket!";
-	}
+	// if (parseInt(projectData.newData.main.temp.toFixed()) > 70) {
+	// 	content.innerText = "It's a nice warm day!";
+	// } else {
+	// 	content.innerText = "It's a bit chilly outside make sure to bring a jacket!";
+	// }
 }
 
 const updateUi = (specialData) => {

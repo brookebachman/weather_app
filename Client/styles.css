@@ -46,13 +46,15 @@ html {
         height: 30vh;
         padding: 20px;
         border-radius: 15px;
+        background-image: url('../images/background.png');
+        background-repeat: no-repeat;
     }
 
     #inner {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
-        grid-template-areas: 'top1 top top2' 'mid mid mid''left middle right'; 
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 'place topright' 'clouds right'; 
         height: 28vh;
         color: white;
         padding: 10px;
@@ -62,34 +64,39 @@ html {
     #temp {
         margin: 10px;
         padding: 10px;
-        grid-area: top2;
+        grid-area: topright;
         text-align: right;
-        font-size: 20px;
-        background-color: rgb(186, 212, 240, .7);
+        font-size: 60px;
+        
     }  
-    #date {
+
+    #placeDiv {
         font-size: 20ps;
         margin: 10px;
         padding: 10px;
-        grid-area: top1;
-        background-color: rgb(186, 212, 240, .7);
+        grid-area: place;
     }
-    #text {
+    /* #text {
         font-size: 17px;
         margin: 10px;
         padding: 10px;
-        grid-area: left;
+        grid-area: clouds;
         text-align: left;
-        background-color: rgb(186, 212, 240, .7);
-    } 
+        
+    }  */
     #clouds {
         font-size: 17px;
         margin: 10px;
         padding: 10px;
-        grid-area: right;
+        grid-area: clouds;
         text-align: right;
-        background-color: rgb(186, 212, 240, .7);
+        
     }
+    #place {
+        grid-area: place;
+        font-size: 35px;
+    }
+
 
 
     .myButton {
