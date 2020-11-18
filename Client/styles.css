@@ -28,7 +28,7 @@ html {
         padding: 20px 10px;
         font-size: 20px;
         background-color: rgba(255, 254, 254, 0.3);
-        
+        border-radius: 15px;
     }
     form {
         text-align: center;
@@ -39,39 +39,56 @@ html {
         margin: 20px 0px;
         background-color: rgba(255, 254, 254, 0.3);
         padding: 30px;
-        font-size: 20px;
         height: 35vh;
+        border-radius: 15px;
     }
     #container {
         height: 30vh;
         padding: 20px;
-        
+        border-radius: 15px;
     }
 
     #inner {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr;
-        grid-template-areas: 'top1 top2' 'mid mid''left right'; 
+        grid-template-areas: 'top1 top top2' 'mid mid mid''left middle right'; 
         height: 28vh;
         color: white;
         padding: 10px;
+      
     }
 
     #temp {
+        margin: 10px;
+        padding: 10px;
         grid-area: top2;
         text-align: right;
+        font-size: 20px;
+        background-color: rgb(186, 212, 240, .7);
     }  
     #date {
+        font-size: 20ps;
+        margin: 10px;
+        padding: 10px;
         grid-area: top1;
+        background-color: rgb(186, 212, 240, .7);
     }
     #text {
+        font-size: 17px;
+        margin: 10px;
+        padding: 10px;
         grid-area: left;
         text-align: left;
+        background-color: rgb(186, 212, 240, .7);
     } 
     #clouds {
+        font-size: 17px;
+        margin: 10px;
+        padding: 10px;
         grid-area: right;
         text-align: right;
+        background-color: rgb(186, 212, 240, .7);
     }
 
 

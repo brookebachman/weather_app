@@ -66,13 +66,28 @@ const createLis = () => {
 	}
 };
 
+function changeTime(d){
+  let array = d
+    for (const [key, value] of Object.entries(d)) {
+        console.log(`${key}: ${value}`);
+      }
+ 
+
+    // return time
+}
+
 function convertTime(){
     let utcSeconds = projectData.newData.dt;
     let d = new Date(0);
     d.setUTCSeconds(utcSeconds)
+    
     console.log(d)
+    changeTime(d)
+
     return d
+    
 }
+
 function updateFrontend(projectData) {
     entryHolder.appendChild(results);
 	console.log('update frontend getting called');
@@ -95,7 +110,7 @@ function updateFrontend(projectData) {
     innerDiv.appendChild(content);
     innerDiv.appendChild(clouds)
     date.innerText = convertTime()
-	temp.innerText = projectData.newData.main.temp.toFixed() + ' degrees ℉';
+	temp.innerText = projectData.newData.main.temp.toFixed() + ' ℉';
 	if (projectData.newData.clouds.all === 0) {
 		clouds.innerText = 'There are no clouds in the sky today ☀';
 	} else if (projectData.newData.clouds.all > 0 && projectData.newData.clouds.all < 10) {
@@ -107,7 +122,8 @@ function updateFrontend(projectData) {
 		//image.src = '../images/sun.png'
 		div.style.cssText = "background-image: url('../images/sun.png'); background-size: cover;";
 	} else if (projectData.newData.weather[0].description === 'broken clouds') {
-		div.style.cssText = "background-image: url('../images/clouds.png'); background-size: cover;";
+        div.style.cssText = "background-image: url('../images/clouds.png'); background-size: cover;";
+        innerDiv.style.color = "black";
 		//image.src = '../images/clouds.png'
 	} else {
 		div.style.cssText = "background-image: url('../images/rain.png'); background-size: cover;";
