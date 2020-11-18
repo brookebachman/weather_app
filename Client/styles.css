@@ -5,7 +5,6 @@ html {
 #main-container {
     background: linear-gradient(0deg, rgba(50,181,205,1) 0%, rgba(199,137,137,1) 50%, rgba(252,176,69,1) 100%);
     height: 110vh;  
-    font-family: 'Playfair Display', serif;
 }
 
 @media (min-width: 700px){
@@ -13,7 +12,7 @@ html {
     #main-container {
         background: linear-gradient(0deg, rgba(50,181,205,1) 0%, rgba(199,137,137,1) 50%, rgba(252,176,69,1) 100%);
         height: 140vh;  
-        font-family: 'Playfair Display', serif;
+       
     }
 
     #picture {
@@ -29,21 +28,22 @@ html {
         font-size: 20px;
         background-color: rgba(255, 254, 254, 0.3);
         border-radius: 15px;
+        font-family: 'Playfair Display', serif;
     }
     form {
         text-align: center;
     }
 
-   
     #results {
         margin: 20px 0px;
         background-color: rgba(255, 254, 254, 0.3);
         padding: 30px;
-        height: 35vh;
+        height: 40vh;
         border-radius: 15px;
+        font-family: 'Quicksand', sans-serif;
     }
     #container {
-        height: 30vh;
+        height: 35vh;
         padding: 20px;
         border-radius: 15px;
         background-image: url('../images/background.png');
@@ -53,27 +53,22 @@ html {
     #inner {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        grid-template-areas: 'place topright' 'clouds right'; 
-        height: 28vh;
+        grid-template-rows: 3fr 1fr;
+        grid-template-areas: 'place topright' 'clouds clouds';
+        height: 17vh;
         color: white;
         padding: 10px;
-      
     }
 
     #temp {
-        margin: 10px;
-        padding: 10px;
         grid-area: topright;
         text-align: right;
-        font-size: 60px;
+        font-size: 70px;
         
     }  
 
     #placeDiv {
-        font-size: 20ps;
-        margin: 10px;
-        padding: 10px;
+        font-size: 20px;
         grid-area: place;
     }
     /* #text {
@@ -85,17 +80,15 @@ html {
         
     }  */
     #clouds {
-        font-size: 17px;
-        margin: 10px;
-        padding: 10px;
+        font-size: 180px;
         grid-area: clouds;
-        text-align: right;
+        text-align: center;
         
     }
     #place {
-        grid-area: place;
-        font-size: 35px;
+        font-size: 50px;
     }
+ 
 
 
 
