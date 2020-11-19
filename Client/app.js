@@ -26,7 +26,7 @@ function performAction(event) {
 		return projectData;
 	})
 	.then(function (projectData) {
-		updateUi({ place: zipcode, weather: projectData.clouds.all, temp: projectData.main.temp.toFixed() , feelings: feelings});
+		updateUi({ place: zipcode, weather: projectData.clouds.all, temp: projectData.main.temp.toFixed(), feelings: feelings});
 	});
 }
 const getZipode = async (baseURL, zipcode, apiKey) => {
@@ -39,7 +39,6 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
         changeDate(projectData);
         //sunsetCheck(changeTime(), projectData)
 		updateFrontend(projectData);
-		console.log(projectData.newData);
 	} catch (error) {
 		console.log(error, 'this is the error');
 	}
@@ -59,10 +58,11 @@ const postData = async (url = '/addData', data = {}) => {
 		console.log(newData, 'this is new data');
 	} catch (error) {
 		console.log(error, 'error');
+		console.error(error)
 	}
 };
 const createLis = () => {
-	for (let i = 0; i < 9; i++) {
+	for (let i = 0; i < 10; i++) {
 		const p = document.createElement('p');
 		p.id = i;
 		results.appendChild(p);
@@ -148,7 +148,9 @@ function updateFrontend(projectData) {
 	const place = document.getElementById('4');
     const time = document.getElementById('5');
     const sunset = document.getElementById('6')
-    const minMaxTemp = document.getElementById('7')
+	const minMaxTemp = document.getElementById('7')
+	const feelingsLi = document.getElementById('7')
+	feelingsLi.innerText = feelings;
     
     const div = document.createElement('div');
 	temp.id = 'temp';
