@@ -35,7 +35,7 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
 		createLis();
 		changeTime(projectData);
         changeDate(projectData);
-        sunsetCheck(changeTime(), projectData)
+        //sunsetCheck(changeTime(), projectData)
 		updateFrontend(projectData);
 		console.log(projectData.newData);
 	} catch (error) {
@@ -60,7 +60,7 @@ const postData = async (url = '/addData', data = {}) => {
 	}
 };
 const createLis = () => {
-	for (let i = 0; i < 7; i++) {
+	for (let i = 0; i < 9; i++) {
 		const p = document.createElement('p');
 		p.id = i;
 		results.appendChild(p);
@@ -115,30 +115,30 @@ function changeTime() {
     
 }
 
-function sunsetCheck(time, projectData){
-    console.log("sunset is running", time)
-    let utcSeconds = projectData.newData.sys.sunset;
-	let d = new Date(0);
-    d.setUTCSeconds(utcSeconds);
-    let array = d.toString().split(' ');
-    dateTime = array.slice(4, 5).toString();
-    let sunsetTime = []
-	for (let i = 0; i < dateTime.length; i++) {
-		if (i < 5) {
-			sunsetTime.push(dateTime[i]);
-		}
-    }
-    if (time >= sunsetTime){
-        return true
-    } else {
-        return false
-    }
+// function sunsetCheck(time, projectData){
+//     console.log("sunset is running", time)
+//     let utcSeconds = projectData.newData.sys.sunset;
+// 	let d = new Date(0);
+//     d.setUTCSeconds(utcSeconds);
+//     let array = d.toString().split(' ');
+//     dateTime = array.slice(4, 5).toString();
+//     let sunsetTime = []
+// 	for (let i = 0; i < dateTime.length; i++) {
+// 		if (i < 5) {
+// 			sunsetTime.push(dateTime[i]);
+// 		}
+//     }
+//     if (time >= sunsetTime){
+//         return true
+//     } else {
+//         return false
+//     }
     
-}
+// }
 
 function updateFrontend(projectData) {
 	entryHolder.appendChild(results);
-	console.log('update frontend getting called');
+	console.log('update frontend getting called', projectData);
 	const temp = document.getElementById('0');
 	const date = document.getElementById('1');
 	const content = document.getElementById('2');
@@ -146,6 +146,8 @@ function updateFrontend(projectData) {
 	const place = document.getElementById('4');
     const time = document.getElementById('5');
     const sunset = document.getElementById('6')
+    const minMaxTemp = document.getElementById('7')
+    
     const div = document.createElement('div');
 	temp.id = 'temp';
 	clouds.id = 'clouds';
@@ -155,26 +157,32 @@ function updateFrontend(projectData) {
 	place.id = 'place';
     time.id = 'time';
     sunset.id = "sunset"
+    minMaxTemp.id = "minMaxTemp"
+    
 
 	const innerDiv = document.createElement('div');
 	innerDiv.id = 'inner';
-	const placeDiv = document.createElement('div');
+    const placeDiv = document.createElement('div');
+    const tempDiv = document.createElement('div');
 	results.appendChild(div);
-	div.appendChild(innerDiv);
-	innerDiv.appendChild(placeDiv);
-	innerDiv.appendChild(temp);
+    div.appendChild(innerDiv);
+    innerDiv.appendChild(placeDiv);
+    innerDiv.appendChild(tempDiv)
 	placeDiv.appendChild(place);
 	placeDiv.appendChild(date);
 	placeDiv.appendChild(time);
-	innerDiv.appendChild(clouds);
+    innerDiv.appendChild(clouds);
+    tempDiv.appendChild(temp);
+    tempDiv.appendChild(minMaxTemp);
 	place.innerText = projectData.newData.name;
 	date.innerText = changeDate();
 	time.innerText = changeTime();
     temp.innerText = projectData.newData.main.temp.toFixed() + '°';
+    minMaxTemp.innerText = projectData.newData.main.temp_min.toFixed() +'/' + projectData.newData.main.temp_max.toFixed() ;
     
-    if (sunsetCheck() == true){
-        container.style.cssText = "background-image: url('../images/night.png')";
-    }
+    // if (sunsetCheck() == true){
+    //     container.style.cssText = "background-image: url('../images/night.png')";
+    // }
 	// if (projectData.newData.clouds.all === 0) {
 	// 	clouds.innerText = 'There are no clouds in the sky today ☀';
 	// } else if (projectData.newData.clouds.all > 0 && projectData.newData.clouds.all < 10) {
