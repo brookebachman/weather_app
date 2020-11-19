@@ -178,7 +178,7 @@ function updateFrontend(projectData) {
 	date.innerText = changeDate();
 	time.innerText = changeTime();
     temp.innerText = projectData.newData.main.temp.toFixed() + '°';
-    minMaxTemp.innerText = projectData.newData.main.temp_min.toFixed() +'/' + projectData.newData.main.temp_max.toFixed() ;
+    minMaxTemp.innerText = projectData.newData.main.temp_min.toFixed()+ '°' +'/' + projectData.newData.main.temp_max.toFixed()+ '°' ;
     
     // if (sunsetCheck() == true){
     //     container.style.cssText = "background-image: url('../images/night.png')";
