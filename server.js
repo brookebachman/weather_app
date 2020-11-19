@@ -27,9 +27,10 @@ app.post('/addData', function(req, res){
   newEntry = {
     place: req.body.place, 
     weather: req.body.weather,
-    temp: req.body.temp
+    temp: req.body.temp,
+    feelings: req.body.feelings
   }
-  newData.push(newEntry)
+  newData = newEntry;
   res.send(newData)
   console.log(newData)
 })

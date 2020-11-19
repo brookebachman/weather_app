@@ -10,22 +10,24 @@ const entryHolder = document.getElementById('entryHolder');
 const results = document.createElement('div');
 results.id = 'results';
 const details = document.getElementById('details');
+
 function performAction(event) {
 	event.preventDefault();
-	const zipcode = document.getElementById('feelings').value;
-	getZipode(baseURL, zipcode, apiKey);
-	// .then(function (projectData) {
-	// 	console.log(projectData, 'projectData');
-	// 	postData('/addData', projectData, {
-	// 		place: zipcode,
-	// 		weather: projectData.newData.clouds.all,
-	// 		temp: projectData.newData.main.temp.toFixed(),
-	// 	});
-	// 	return projectData;
-	// })
-	// .then(function (projectData) {
-	// 	updateUi({ place: zipcode, weather: projectData.clouds.all, temp: projectData.main.temp.toFixed() });
-	// });
+	const zipcode = document.getElementById('zipcode').value;
+	const feelings = document.getElementById("feelings").value;
+	getZipode(baseURL, zipcode, apiKey)
+	.then(function (projectData) {
+		postData('/addData', {
+			place: zipcode,
+			weather: projectData.newData.clouds.all,
+			temp: projectData.newData.main.temp.toFixed(),
+			feelings: feelings,
+		});
+		return projectData;
+	})
+	.then(function (projectData) {
+		updateUi({ place: zipcode, weather: projectData.clouds.all, temp: projectData.main.temp.toFixed() , feelings: feelings});
+	});
 }
 const getZipode = async (baseURL, zipcode, apiKey) => {
 	const response = await fetch(baseURL + zipcode + ',us' + '&appid=' + apiKey + '&units=imperial');
