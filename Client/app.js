@@ -1,6 +1,9 @@
 //need to convert epoch to regular date
 //fix small screen size
 // const { url } = require("inspector");
+
+// const { getHeapCodeStatistics } = require("v8");
+
 //make the post request
 const apiKey = '0b53ac0f940893f55db63af93f3ada83';
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip=';
@@ -16,17 +19,23 @@ function performAction(event) {
 	const zipcode = document.getElementById('zipcode').value;
 	const feelings = document.getElementById("feelings").value;
 	getZipode(baseURL, zipcode, apiKey)
+	// .then(function(data){
+	// 	getData('/', )
 	.then(function (projectData) {
 		postData('/addData', {
 			place: zipcode,
 			weather: projectData.newData.clouds.all,
 			temp: projectData.newData.main.temp.toFixed(),
 			feelings: feelings,
+			min: projectData.newData.main.temp_min.toFixed(),
+			max: projectData.newData.main.temp_max.toFixed(),
+			date: projectData.newData.dt,
+			time: projectData.newData.dt
 		});
 		return projectData;
 	})
 	.then(function (projectData) {
-		updateUi({ place: zipcode, weather: projectData.clouds.all, temp: projectData.main.temp.toFixed(), feelings: feelings});
+		updateUi({ place: projectData.zipcode, weather: projectData.weather, temp: projectData.temp, feelings: projectData.feelings, min: projectData.min, max: projectData.max, date: changeDate(projectData.date), time: changeTime(projectData.time)});
 	});
 }
 const getZipode = async (baseURL, zipcode, apiKey) => {
@@ -39,26 +48,28 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
         changeDate(projectData);
         //sunsetCheck(changeTime(), projectData)
 		updateFrontend(projectData);
+		console.log(newData)
 	} catch (error) {
 		console.log(error, 'this is the error');
 	}
+	return projectData
+	
 };
 const postData = async (url = '/addData', data = {}) => {
-	console.log(data, 'this is post data function running');
-	const response = await fetch('/', {
+	console.log(data, 'this is post data function running', "data");
+	const response = await fetch('http://localhost:3200', {
 		method: 'POST',
-		credentials: 'cross-origin',
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify(data),
+		body: JSON.stringify(data)
 	});
 	try {
 		const newData = await response.json();
 		console.log(newData, 'this is new data');
 	} catch (error) {
 		console.log(error, 'error');
-		console.error(error)
+	
 	}
 };
 const createLis = () => {
@@ -69,8 +80,8 @@ const createLis = () => {
 	}
 };
 
-function changeDate() {
-	let utcSeconds = projectData.newData.dt;
+function changeDate(date) {
+	let utcSeconds = date;
 	let d = new Date(0);
 	d.setUTCSeconds(utcSeconds);
 	let array = d.toString().split(' ');
@@ -84,10 +95,10 @@ function changeDate() {
 	// return time
 }
 
-function changeTime() {
+function changeTime(projectData) {
 	console.log('change time is getting called');
 	let timeArray = [];
-	let utcSeconds = projectData.newData.dt;
+	let utcSeconds = projectData.dt;
 	let d = new Date(0);
 	d.setUTCSeconds(utcSeconds);
 	let array = d.toString().split(' ');
@@ -150,7 +161,7 @@ function updateFrontend(projectData) {
     const sunset = document.getElementById('6')
 	const minMaxTemp = document.getElementById('7')
 	const feelingsLi = document.getElementById('7')
-	feelingsLi.innerText = feelings;
+	feelingsLi.innerText = projectData.feelings;
     
     const div = document.createElement('div');
 	temp.id = 'temp';
@@ -161,9 +172,8 @@ function updateFrontend(projectData) {
 	place.id = 'place';
     time.id = 'time';
     sunset.id = "sunset"
-    minMaxTemp.id = "minMaxTemp"
-    
-
+	minMaxTemp.id = "minMaxTemp"
+	
 	const innerDiv = document.createElement('div');
 	innerDiv.id = 'inner';
     const placeDiv = document.createElement('div');
@@ -178,11 +188,11 @@ function updateFrontend(projectData) {
     innerDiv.appendChild(clouds);
     tempDiv.appendChild(temp);
     tempDiv.appendChild(minMaxTemp);
-	place.innerText = projectData.newData.name;
+	place.innerText = projectData.place;
 	date.innerText = changeDate();
 	time.innerText = changeTime();
-    temp.innerText = projectData.newData.main.temp.toFixed() + '°';
-    minMaxTemp.innerText = projectData.newData.main.temp_min.toFixed()+ '°' +'/' + projectData.newData.main.temp_max.toFixed()+ '°' ;
+    temp.innerText = projectData.temp + '°';
+    minMaxTemp.innerText = projectData.min + '°' +'/' + projectData.max + '°' ;
     
     // if (sunsetCheck() == true){
     //     container.style.cssText = "background-image: url('../images/night.png')";
@@ -212,6 +222,3 @@ function updateFrontend(projectData) {
 	}
 }
 
-const updateUi = (specialData) => {
-	console.log('update ui being called');
-};
