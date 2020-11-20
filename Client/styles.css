@@ -36,6 +36,10 @@ html {
 	#title {
 		font-size: 45px;
 	}
+
+	#symbol {
+		color: white;
+	}
 	#form-container {
 		justify-content: center;
 		padding: 20px 10px;
