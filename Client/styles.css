@@ -46,9 +46,8 @@ html {
 		background-color: rgba(255, 254, 254, 0.3);
 		border-radius: 15px;
 		font-family: 'Playfair Display', serif;
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
+		text-align: center;
+
 	}
 	li {
 		list-style: none;

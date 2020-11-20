@@ -158,7 +158,7 @@ function updateFrontend(projectData) {
     const time = document.getElementById('5');
     const sunset = document.getElementById('6')
 	const minMaxTemp = document.getElementById('7')
-	const content = document.getElementById('7')
+	//const content = document.getElementById('7')
 	content.innerText = projectData.feelings;
     
     const newDiv = document.createElement('div');
