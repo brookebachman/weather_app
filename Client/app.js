@@ -19,8 +19,6 @@ function performAction(event) {
 	const zipcode = document.getElementById('zipcode').value;
 	const feelings = document.getElementById("feelings").value;
 	getZipode(baseURL, zipcode, apiKey)
-	// .then(function(data){
-	// 	getData('/', )
 	.then(function (projectData) {
 		postData('/addData', {
 			place: zipcode,
@@ -35,7 +33,7 @@ function performAction(event) {
 		return projectData;
 	})
 	.then(function (projectData) {
-		updateUi({ place: projectData.zipcode, weather: projectData.weather, temp: projectData.temp, feelings: projectData.feelings, min: projectData.min, max: projectData.max, date: changeDate(projectData.date), time: changeTime(projectData.time)});
+		updateFrontend({ place: projectData.zipcode, weather: projectData.weather, temp: projectData.temp, feelings: projectData.feelings, min: projectData.min, max: projectData.max, date: changeDate(projectData.date), time: changeTime(projectData.time)});
 	});
 }
 const getZipode = async (baseURL, zipcode, apiKey) => {
@@ -43,9 +41,9 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
 	try {
 		const data = await response.json();
 		projectData = { newData: data };
-		createLis();
-		changeTime(projectData);
-        changeDate(projectData);
+		createDivs();
+		changeTime(projectData.data);
+        changeDate(projectData.data);
         //sunsetCheck(changeTime(), projectData)
 		updateFrontend(projectData);
 		console.log(newData)
@@ -57,7 +55,7 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
 };
 const postData = async (url = '/addData', data = {}) => {
 	console.log(data, 'this is post data function running', "data");
-	const response = await fetch('http://localhost:3200', {
+	const response = await fetch('http://localhost:3200/addData', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
@@ -72,11 +70,11 @@ const postData = async (url = '/addData', data = {}) => {
 	
 	}
 };
-const createLis = () => {
+const createDivs = () => {
 	for (let i = 0; i < 10; i++) {
-		const p = document.createElement('p');
-		p.id = i;
-		results.appendChild(p);
+		const div = document.createElement('div');
+		div.id = i;
+		results.adivpendChild(div);
 	}
 };
 
@@ -96,7 +94,7 @@ function changeDate(date) {
 }
 
 function changeTime(projectData) {
-	console.log('change time is getting called');
+	console.log('change time is getting called', projectData);
 	let timeArray = [];
 	let utcSeconds = projectData.dt;
 	let d = new Date(0);
@@ -160,14 +158,14 @@ function updateFrontend(projectData) {
     const time = document.getElementById('5');
     const sunset = document.getElementById('6')
 	const minMaxTemp = document.getElementById('7')
-	const feelingsLi = document.getElementById('7')
-	feelingsLi.innerText = projectData.feelings;
+	const content = document.getElementById('7')
+	content.innerText = projectData.feelings;
     
-    const div = document.createElement('div');
+    const newDiv = document.createElement('div');
 	temp.id = 'temp';
 	clouds.id = 'clouds';
 	date.id = 'date';
-	content.id = 'text';
+	content.id = 'content';
 	div.id = 'container';
 	place.id = 'place';
     time.id = 'time';
@@ -179,7 +177,7 @@ function updateFrontend(projectData) {
     const placeDiv = document.createElement('div');
     const tempDiv = document.createElement('div');
 	results.appendChild(div);
-    div.appendChild(innerDiv);
+    newDiv.appendChild(innerDiv);
     innerDiv.appendChild(placeDiv);
     innerDiv.appendChild(tempDiv)
 	placeDiv.appendChild(place);
@@ -197,24 +195,7 @@ function updateFrontend(projectData) {
     // if (sunsetCheck() == true){
     //     container.style.cssText = "background-image: url('../images/night.png')";
     // }
-	// if (projectData.newData.clouds.all === 0) {
-	// 	clouds.innerText = 'There are no clouds in the sky today ☀';
-	// } else if (projectData.newData.clouds.all > 0 && projectData.newData.clouds.all < 10) {
-	// 	clouds.innerText = 'There are some clouds today ☁';
-	// } else {
-	// 	clouds.innerText = "";
-	// }
-	// if (projectData.newData.weather[0].description === 'clear sky') {
-	// 	//image.src = '../images/sun.png'
-	// 	// div.style.cssText = "background-image: url('../images/sun.png'); background-size: cover;";
-	// } else if (projectData.newData.weather[0].description === 'broken clouds') {
-	//     // div.style.cssText = "background-image: url('../images/clouds.png'); background-size: cover;";
-	//     // innerDiv.style.color = "black";
-	// 	//image.src = '../images/clouds.png'
-	// } else {
-	// 	// div.style.cssText = "background-image: url('../images/rain.png'); background-size: cover;";
-	// 	//image.src = '../images/rain.png'
-	// }
+	
 	if (parseInt(projectData.newData.main.temp.toFixed()) > 70) {
 		clouds.innerText = '☀';
 	} else {

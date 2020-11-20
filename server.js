@@ -3,7 +3,7 @@ const app = express();
 // Initialize the main project folder
 app.use(express.static('Client'));
 // Setup empty JS object to act as endpoint for all routes
-const newData = {};
+let newData = {};
 /* Dependencies */
 const bodyParser = require('body-parser')
 /* Middleware*/
