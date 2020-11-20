@@ -186,11 +186,11 @@ function updateFrontend(projectData) {
     innerDiv.appendChild(clouds);
     tempDiv.appendChild(temp);
     tempDiv.appendChild(minMaxTemp);
-	place.innerText = projectData.place;
-	date.innerText = changeDate();
-	time.innerText = changeTime();
-    temp.innerText = projectData.temp + '°';
-    minMaxTemp.innerText = projectData.min + '°' +'/' + projectData.max + '°' ;
+	place.innerHTML = projectData.place;
+	date.innerHTML = changeDate();
+	time.innerHTML = changeTime();
+    temp.innerHTML = projectData.temp + '°';
+    minMaxTemp.innerHTML = projectData.min + '°' +'/' + projectData.max + '°' ;
     
     // if (sunsetCheck() == true){
     //     container.style.cssText = "background-image: url('../images/night.png')";
