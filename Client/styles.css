@@ -4,7 +4,7 @@ html {
 
 #main-container {
 	background: linear-gradient(0deg, rgba(50, 181, 205, 1) 0%, rgba(199, 137, 137, 1) 50%, rgba(252, 176, 69, 1) 100%);
-	height: 110vh;
+	height: 100vh;
 }
 
 @media (min-width: 700px) {
@@ -15,7 +15,7 @@ html {
 			rgba(199, 137, 137, 1) 50%,
 			rgba(252, 176, 69, 1) 100%
 		);
-		height: 140vh;
+		height: 120vh;
 	}
 
 	#picture {
@@ -24,6 +24,17 @@ html {
 		flex-direction: column;
 		padding: 60px;
 		margin: 0px 50px 10px 50px;
+	}
+	#idDiv {
+		text-align: center;
+		padding: 20px 10px;
+		background-color: rgba(255, 254, 254, 0.3);
+		border-radius: 15px;
+		font-family: 'Playfair Display', serif;
+		margin-bottom: 20px;
+	}
+	#title {
+		font-size: 45px;
 	}
 	#form-container {
 		justify-content: center;
@@ -97,7 +108,7 @@ html {
 		font-size: 20px;
 	}
 
-	.myButton {
+	/* .myButton {
 		box-shadow: inset 0px 1px 0px 0px #ffffff;
 		background: linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
 		background-color: #ededed;
@@ -120,6 +131,31 @@ html {
 	.myButton:active {
 		position: relative;
 		top: 1px;
+	} */
+
+	.myButton {
+		box-shadow:inset 0px 1px 0px 0px #fff6af;
+		background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+		background-color:#ffec64;
+		border-radius:6px;
+		border:1px solid #fcb84a;
+		display:inline-block;
+		cursor:pointer;
+		color:#333333;
+		font-family:Helvetica; 
+		font-size:15px;
+		font-weight:bold;
+		padding:6px 24px;
+		text-decoration:none;
+		text-shadow:0px 1px 0px #ffee66;
+	}
+	.myButton:hover {
+		background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+		background-color:#ffab23;
+	}
+	.myButton:active {
+		position:relative;
+		top:1px;
 	}
 	img {
 		height: 300px;
