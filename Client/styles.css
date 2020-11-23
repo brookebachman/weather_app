@@ -63,7 +63,6 @@ html {
 	}
 	#container {
 		height: 45vh;
-		padding: 0px 40px;
 		border-radius: 15px;
 		background-image: url('../images/background.png');
 		background-repeat: no-repeat;
