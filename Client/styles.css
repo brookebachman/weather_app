@@ -66,6 +66,8 @@ html {
 		border-radius: 15px;
 		background-image: url('../images/background.png');
 		background-repeat: no-repeat;
+		background-size: cover;
+		padding: 10px;
 	}
 
 	#entryHolder {
