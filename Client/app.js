@@ -42,11 +42,7 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
 		const data = await response.json();
 		projectData = { newData: data };
 		createDivs();
-		changeTime(projectData.data);
-        changeDate(projectData.data);
-        //sunsetCheck(changeTime(), projectData)
-		updateFrontend(projectData);
-		console.log(newData)
+		console.log(projectData, "zipcode project data")
 	} catch (error) {
 		console.log(error, 'this is the error');
 	}
@@ -64,6 +60,11 @@ const postData = async (url = '/addData', data = {}) => {
 	});
 	try {
 		const newData = await response.json();
+		console.log(newData)
+		changeTime(newData.time);
+        changeDate(newData.date);
+        //sunsetCheck(changeTime(), projectData)
+		updateFrontend(newData);
 		console.log(newData, 'this is new data');
 	} catch (error) {
 		console.log(error, 'error');
@@ -74,7 +75,7 @@ const createDivs = () => {
 	for (let i = 0; i < 10; i++) {
 		const div = document.createElement('div');
 		div.id = i;
-		results.adivpendChild(div);
+		results.appendChild(div);
 	}
 };
 
@@ -96,7 +97,7 @@ function changeDate(date) {
 function changeTime(projectData) {
 	console.log('change time is getting called', projectData);
 	let timeArray = [];
-	let utcSeconds = projectData.dt;
+	let utcSeconds = projectData;
 	let d = new Date(0);
 	d.setUTCSeconds(utcSeconds);
 	let array = d.toString().split(' ');
@@ -158,25 +159,12 @@ function updateFrontend(projectData) {
     const time = document.getElementById('5');
     const sunset = document.getElementById('6')
 	const minMaxTemp = document.getElementById('7')
-	//const content = document.getElementById('7')
-	content.innerText = projectData.feelings;
-    
     const newDiv = document.createElement('div');
-	temp.id = 'temp';
-	clouds.id = 'clouds';
-	date.id = 'date';
-	content.id = 'content';
-	div.id = 'container';
-	place.id = 'place';
-    time.id = 'time';
-    sunset.id = "sunset"
-	minMaxTemp.id = "minMaxTemp"
-	
 	const innerDiv = document.createElement('div');
 	innerDiv.id = 'inner';
     const placeDiv = document.createElement('div');
     const tempDiv = document.createElement('div');
-	results.appendChild(div);
+	results.appendChild(newDiv);
     newDiv.appendChild(innerDiv);
     innerDiv.appendChild(placeDiv);
     innerDiv.appendChild(tempDiv)
@@ -185,21 +173,32 @@ function updateFrontend(projectData) {
 	placeDiv.appendChild(time);
     innerDiv.appendChild(clouds);
     tempDiv.appendChild(temp);
-    tempDiv.appendChild(minMaxTemp);
+	tempDiv.appendChild(minMaxTemp);
+	tempDiv.appendChild(content)
 	place.innerHTML = projectData.place;
 	date.innerHTML = changeDate();
 	time.innerHTML = changeTime();
     temp.innerHTML = projectData.temp + '°';
-    minMaxTemp.innerHTML = projectData.min + '°' +'/' + projectData.max + '°' ;
+	minMaxTemp.innerHTML = projectData.min + '°' +'/' + projectData.max + '°' ;
+	content.innerText = projectData.feelings;
+	temp.id = 'temp';
+	clouds.id = 'clouds';
+	date.id = 'date';
+	content.id = 'content';
+	newDiv.id = 'container';
+	place.id = 'place';
+    time.id = 'time';
+    sunset.id = "sunset"
+	minMaxTemp.id = "minMaxTemp"
     
     // if (sunsetCheck() == true){
     //     container.style.cssText = "background-image: url('../images/night.png')";
     // }
 	
-	if (parseInt(projectData.newData.main.temp.toFixed()) > 70) {
-		clouds.innerText = '☀';
-	} else {
-		clouds.innerText = '☁';
-	}
+	// if (parseInt(projectData.temp.toFixed()) > 70) {
+	// 	clouds.innerText = '☀';
+	// } else {
+	// 	clouds.innerText = '☁';
+	// }
 }
 
