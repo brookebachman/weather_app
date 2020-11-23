@@ -22,12 +22,12 @@ html {
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
-		padding: 60px;
-		margin: 0px 50px 10px 50px;
+		padding: 20px 30px 0px 30px;
+		margin: 0px 10px 0px 10px;
 	}
 	#idDiv {
 		text-align: center;
-		padding: 20px 10px;
+		padding: 10px 10px;
 		background-color: rgba(255, 254, 254, 0.3);
 		border-radius: 15px;
 		font-family: 'Playfair Display', serif;
@@ -54,7 +54,7 @@ html {
 	}
 
 	#results {
-		margin: 20px 0px;
+		margin: 20px 30px 0px 30px;
 		background-color: rgba(255, 254, 254, 0.3);
 		padding: 30px;
 		height: 55vh;
@@ -63,10 +63,14 @@ html {
 	}
 	#container {
 		height: 45vh;
-		padding: 20px;
+		padding: 0px 40px;
 		border-radius: 15px;
 		background-image: url('../images/background.png');
 		background-repeat: no-repeat;
+	}
+
+	#entryHolder {
+		margin: 0px 10px 20px 10px;
 	}
 
 	#inner {

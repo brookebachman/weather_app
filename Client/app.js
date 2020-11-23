@@ -50,7 +50,6 @@ const getZipode = async (baseURL, zipcode, apiKey) => {
 	
 };
 const postData = async (url = '/addData', data = {}) => {
-	console.log(data, 'this is post data function running', "data");
 	const response = await fetch('http://localhost:3200/addData', {
 		method: 'POST',
 		headers: {
@@ -60,9 +59,8 @@ const postData = async (url = '/addData', data = {}) => {
 	});
 	try {
 		const newData = await response.json();
-		console.log(newData)
-		changeTime(newData.time);
-        changeDate(newData.date);
+		console.log(newData, "this is in the try for post function")
+		
         //sunsetCheck(changeTime(), projectData)
 		updateFrontend(newData);
 		console.log(newData, 'this is new data');
@@ -80,6 +78,7 @@ const createDivs = () => {
 };
 
 function changeDate(date) {
+	console.log(date)
 	let utcSeconds = date;
 	let d = new Date(0);
 	d.setUTCSeconds(utcSeconds);
@@ -89,7 +88,7 @@ function changeDate(date) {
 	//     console.log(array[i], i)
 	// }
 	dateArray = array.slice(1, 4);
-
+	
 	return dateArray.toString(' ');
 	// return time
 }
@@ -149,6 +148,8 @@ function changeTime(projectData) {
 // }
 
 function updateFrontend(projectData) {
+	changeTime(projectData.time);
+        changeDate(projectData.time);
 	entryHolder.appendChild(results);
 	console.log('update frontend getting called', projectData);
 	const temp = document.getElementById('0');
