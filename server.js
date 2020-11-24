@@ -14,8 +14,8 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-app.get('/', function (req, res) {
-    res.send('The server is running');
+app.get('/getData', function (req, res) {
+    res.send(req.body);
   })
 
 const port = 3200;
