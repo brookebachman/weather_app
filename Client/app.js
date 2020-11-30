@@ -196,15 +196,6 @@ const updateFrontend = async () => {
 		sunset.id = "sunset"
 		minMaxTemp.id = "minMaxTemp"
 	
-    // if (sunsetCheck() == true){
-    //     container.style.cssText = "background-image: url('../images/night.png')";
-    // }
-	
-	// if (parseInt(projectData.temp.toFixed()) > 70) {
-	// 	clouds.innerText = '☀';
-	// } else {
-	// 	clouds.innerText = '☁';
-	// }
 	} catch (error){
 		console.log(error)
 	}
