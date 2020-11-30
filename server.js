@@ -27,6 +27,7 @@ const server = app.listen(port, ()=>{console.log(`running on localhost: ${port}`
 app.post('/addData', function(req, res){
   console.log(req.body)
   newEntry = {
+    zipcode: req.body.zipcode,
     place: req.body.place, 
     weather: req.body.weather,
     temp: req.body.temp,

@@ -21,7 +21,8 @@ function performAction(event) {
 	getZipode(baseURL, zipcode, apiKey)
 	.then(function (projectData) {
 		postData('/addData', {
-			place: zipcode,
+			zipcode: zipcode,
+			place: projectData.newData.name,
 			weather: projectData.newData.clouds.all,
 			temp: projectData.newData.main.temp.toFixed(),
 			feelings: feelings,
@@ -180,8 +181,8 @@ const updateFrontend = async () => {
 		tempDiv.appendChild(minMaxTemp);
 		tempDiv.appendChild(content)
 		place.innerHTML = projectData.place;
-		date.innerHTML = changeDate();
-		time.innerHTML = changeTime();
+		date.innerHTML = changeDate(projectData.time);
+		time.innerHTML = changeTime(projectData.time);
 		temp.innerHTML = projectData.temp + '°';
 		minMaxTemp.innerHTML = projectData.min + '°' +'/' + projectData.max + '°' ;
 		content.innerText = "Mood today: " + projectData.feelings;
