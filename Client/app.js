@@ -33,7 +33,9 @@ function performAction(event) {
 		return projectData;
 	})
 	.then(function (projectData) {
-		updateFrontend({ place: projectData.zipcode, weather: projectData.weather, temp: projectData.temp, feelings: projectData.feelings, min: projectData.min, max: projectData.max, date: changeDate(projectData.date), time: changeTime(projectData.time)});
+		updateFrontend(
+			// { place: projectData.zipcode, weather: projectData.weather, temp: projectData.temp, feelings: projectData.feelings, min: projectData.min, max: projectData.max, date: changeDate(projectData.date), time: changeTime(projectData.time)}
+			);
 	});
 }
 const getZipode = async (baseURL, zipcode, apiKey) => {
@@ -58,13 +60,12 @@ const postData = async (url = '/addData', data = {}) => {
 		body: JSON.stringify(data)
 	});
 	try {
-		const newData = await response.json();
-		console.log(newData, "this is in the try for post function")
+		const projectData = await response.json();
 		
         //sunsetCheck(changeTime(), projectData)
-		//updateFrontend(newData);
-		console.log(newData, 'this is new data');
-		return newData
+		//updateFrontend(projectData);
+		console.log(projectData, 'this is new data');
+		return projectData
 	} catch (error) {
 		console.log(error, 'error');
 	
@@ -93,7 +94,6 @@ function changeDate(date) {
 	return dateArray.toString(' ');
 	// return time
 }
-
 function changeTime(projectData) {
 	console.log('change time is getting called', projectData);
 	let timeArray = [];
@@ -127,6 +127,7 @@ function changeTime(projectData) {
     
 }
 
+
 // function sunsetCheck(time, projectData){
 //     console.log("sunset is running", time)
 //     let utcSeconds = projectData.newData.sys.sunset;
@@ -148,14 +149,12 @@ function changeTime(projectData) {
     
 // }
 
-const updateFrontend = async (projectData) => {
-	const request = await fetch ("http://localhost:3200/getData");
+const updateFrontend = async () => {
+	const request = await fetch("http://localhost:3200/getData")
 	try {
-		const projectData = await request.json();
-		changeTime(projectData.time);
-        changeDate(projectData.time);
+		const projectData = await request.json()
 		entryHolder.appendChild(results);
-		console.log('update frontend getting called', projectData);
+		console.log('project data from the backend', projectData);
 		const temp = document.getElementById('0');
 		const date = document.getElementById('1');
 		const content = document.getElementById('2');
@@ -195,9 +194,7 @@ const updateFrontend = async (projectData) => {
 		time.id = 'time';
 		sunset.id = "sunset"
 		minMaxTemp.id = "minMaxTemp"
-		} catch (error) {
-			console.log(error)
-		}
+	
     // if (sunsetCheck() == true){
     //     container.style.cssText = "background-image: url('../images/night.png')";
     // }
@@ -207,5 +204,8 @@ const updateFrontend = async (projectData) => {
 	// } else {
 	// 	clouds.innerText = '☁';
 	// }
+	} catch (error){
+		console.log(error)
+	}
 }
 

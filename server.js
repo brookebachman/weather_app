@@ -14,9 +14,11 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-app.get('/getData', function (req, res) {
-    res.send(req.body);
-  })
+app.get('/getData', sendData)
+function sendData (req, res) {
+    res.send(newData);
+    
+  }
 
 const port = 3200;
 const server = app.listen(port, ()=>{console.log(`running on localhost: ${port}`)})
