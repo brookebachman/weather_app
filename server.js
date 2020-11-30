@@ -14,9 +14,11 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-app.get('/getData', function (req, res) {
-    res.send(req.body);
-  })
+app.get('/getData', sendData)
+function sendData (req, res) {
+    res.send(newData);
+    
+  }
 
 const port = 3200;
 const server = app.listen(port, ()=>{console.log(`running on localhost: ${port}`)})
@@ -25,6 +27,7 @@ const server = app.listen(port, ()=>{console.log(`running on localhost: ${port}`
 app.post('/addData', function(req, res){
   console.log(req.body)
   newEntry = {
+    zipcode: req.body.zipcode,
     place: req.body.place, 
     weather: req.body.weather,
     temp: req.body.temp,
