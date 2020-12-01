@@ -34,9 +34,7 @@ function performAction(event) {
 		return projectData;
 	})
 	.then(function (projectData) {
-		updateFrontend(
-			// { place: projectData.zipcode, weather: projectData.weather, temp: projectData.temp, feelings: projectData.feelings, min: projectData.min, max: projectData.max, date: changeDate(projectData.date), time: changeTime(projectData.time)}
-			);
+		updateFrontend();
 	});
 }
 const getZipode = async (baseURL, zipcode, apiKey) => {
@@ -199,4 +197,5 @@ const updateFrontend = async () => {
 	} catch (error){
 		console.log(error)
 	}
+
 }
