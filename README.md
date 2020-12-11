@@ -1,0 +1,1 @@
+This is an application where a user can enter in a zipcodeinto a text box which will send a get request to the OpenWeatherMap API. The user will then be able to see the current weather for the zipcode that they typed in.
